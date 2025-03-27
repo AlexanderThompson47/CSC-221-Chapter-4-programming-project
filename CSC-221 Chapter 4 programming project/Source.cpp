@@ -1,45 +1,51 @@
-//this is the first program in the Chapter 4 programming project
+//this is the second program in the Chapter 4 programming project
 #include <iostream>
+#include <iomanip> // For fixed and setprecision
 using namespace std;
 
 int main() {
-    int month, year;
+    double weight, distance, rate, charges;
 
-    // Prompt user for the month
-    cout << "Enter a month (1-12): ";
-    cin >> month;
+    // Ask user for the weight of the package
+    cout << "Enter the weight of the package (in kilograms (min:1, max:20)): ";
+    cin >> weight;
 
-    // Input validation for month
-    if (month < 1 || month > 12) {
-        cout << "Invalid month. Please enter a value between 1 and 12." << endl;
+    // Check the weight
+    if (weight <= 0 || weight > 20) {
+        cout << "Invalid weight. Please enter a weight between 1 and 20 kg." << endl;
         return 1; // Exit the program
     }
 
-    // Prompt user for the year
-    cout << "Enter a year: ";
-    cin >> year;
+    // Ask user for the distance
+    cout << "Enter the distance to ship the package (in miles (min:10, max:3000)): ";
+    cin >> distance;
 
-    int days;
-
-    // Check number of days based on the month
-    if (month == 2) { // February
-        // Check if it's a leap year
-        if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
-            days = 29;
-        }
-        else {
-            days = 28;
-        }
-    }
-    else if (month == 4 || month == 6 || month == 9 || month == 11) { // Months with 30 days
-        days = 30;
-    }
-    else { // All other months have 31 days
-        days = 31;
+    // Check the distance
+    if (distance < 10 || distance > 3000) {
+        cout << "Invalid distance. Please enter a distance between 10 and 3000 miles." << endl;
+        return 1; // Exit the program
     }
 
-    // Display the number of days
-    cout << days << " days" << endl;
+    // Determine the rate based on the weight
+    if (weight <= 2) {
+        rate = 1.10;
+    }
+    else if (weight > 2 && weight <= 6) {
+        rate = 2.20;
+    }
+    else if (weight > 6 && weight <= 10) {
+        rate = 3.70;
+    }
+    else if (weight > 10 && weight <= 20) {
+        rate = 4.80;
+    }
+
+    // Calculate charges (rate per 500 miles)
+    charges = rate * (distance / 500);
+
+    // Show the charges
+    cout << fixed << setprecision(2);
+    cout << "The shipping charges are: $" << charges << endl;
 
     return 0;
 }
